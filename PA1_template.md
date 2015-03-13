@@ -71,7 +71,7 @@ print(xtable(summary(activity)), type= "html")
 ```
 
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Fri Mar 13 23:32:54 2015 -->
+<!-- Fri Mar 13 23:43:11 2015 -->
 <table border=1>
 <tr> <th>  </th> <th>     steps </th> <th>      date </th> <th>    interval </th>  </tr>
   <tr> <td align="right"> 1 </td> <td> Min.   :  0.00   </td> <td> Min.   :2012-10-01   </td> <td> Min.   :   0.0   </td> </tr>
@@ -392,7 +392,9 @@ kable(cbind(meannozero, mediannozero), format= "markdown", col.names= c("Mean of
 |2012-11-28 |                212.14583                |                   70.0                    |
 |2012-11-29 |                110.10938                |                   44.5                    |
 
+
 View means and median of steps per day by histogram plots. Data is processed without steps = 0, which means we only look at the data when user was moving.
+
 
 
 ```r
@@ -403,14 +405,19 @@ hist(mediannozero, col= 368, main= "Median of steps per day")
 
 ![plot of chunk plot mean and median](figure/plot mean and median-1.png) 
 
+
 ### What is the average daily activity pattern?
+
 
 ##### 1. Make a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).
 
+
 When looking closely into the **interval** data, it is worth noting that intervals should be converted to format of TIME (i.e. %H%M) for plotting a time-series data. Otherwise, there will be a gap between "55"" to next interval "100". As we know that the TIME interval between 55 (00:55) and 100 (01:00) is only 5 minutes, while R would count it as a 45 interval.
+
 
 To solve this issue, we could use `sprintf()` function in R, to formatting the original interval data into a fixed 4-digit number, and then transform it to time.
 For detail information, here's a great reference in the [Cookbook for R](http://www.cookbook-r.com/Strings/Creating_strings_from_variables/#using-sprintf).
+
 
 
 ```r
@@ -426,7 +433,9 @@ plot(unique(cleanact$time), interperday, type="l", main= "Average daily activity
 
 ![plot of chunk daily pattern](figure/daily pattern-1.png) 
 
+
 ##### 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
 
 
 ```r
@@ -436,7 +445,9 @@ interperday[interperday == max(interperday)]
      835 
 206.1698 
 
+
 Within this dataset, interval **835** (08:35) has the maximum average number of steps = **206.1698**. It was also shown in the plot above.
+
 
 ### Imputing missing values
 >Note that there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
@@ -469,7 +480,7 @@ print(xtable(summary(activity2)), type= "html")
 ```
 
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Fri Mar 13 23:32:55 2015 -->
+<!-- Fri Mar 13 23:43:12 2015 -->
 <table border=1>
 <tr> <th>  </th> <th>     steps </th> <th>      date </th> <th>    interval </th> <th>     input </th>  </tr>
   <tr> <td align="right"> 1 </td> <td> Min.   :  0.00   </td> <td> Min.   :2012-10-01   </td> <td> Min.   :   0.0   </td> <td> Min.   :  0.00   </td> </tr>
@@ -576,8 +587,12 @@ kable(cbind(before, after), format= "markdown", col.names= c("Before inputing va
 |2012-11-30 |              NA              |         37.3825996          |
 
 All the missing means are BACK!!!
+Those `NA`s would post an impact on estimating the total number of steps taken per day, as we would not count those `NA` as an effective value.
+As we input `NA` with means or other alternative strategies, they will be replaced by a relatively "neutral" value that may not affect the final result, while no any missing values will interupt our analysis.
+
 
 ### Are there differences in activity patterns between weekdays and weekends?
+
 
 ##### 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
@@ -597,7 +612,9 @@ weekday weekend
 
 ##### 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
+
 As per instruction, we could choose any of the system we want. So let just start from the basic.
+
 
 
 ```r
@@ -624,8 +641,10 @@ plot(utime, weekend, type= "l", main= "Weekend", xlab= "Interval", ylab= "Number
 
 ![plot of chunk make panel plot](figure/make panel plot-1.png) 
 
-The plot above was made by Bacis Plotting system, so it looks kind of boring...
+
+The plot above was made by Basic Plotting system, so it looks kind of boring...
 Since the example was made by Lattice system, we could try the **ggplot2** to get a different view.
+
 
 
 ```r
@@ -643,7 +662,9 @@ q + theme_bw() + geom_line(aes(colour= weekdays)) + theme(legend.position="none"
 
 ![plot of chunk ggplot2](figure/ggplot2-1.png) 
 
+
 Now we get a prettier one!!! Great.
+
 
 And back to the quetsion, they are apparently different patterns for "weekday" and "weekend".
 As the patterns shown, the users of monitoring devices took more steps on weekends. During weekdays, they moved frequently only in the morning (maybe moving to office or schools?), while they took steps more evenly in the day time of weekends.
