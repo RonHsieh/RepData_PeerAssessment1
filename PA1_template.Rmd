@@ -31,9 +31,9 @@ List of Variables:
 *The dataset is stored in a comma-separated-value (CSV) file and there are a total of 17,568 observations in this dataset.*
 
 We could have a quick view of this dataset as below:
-```{r setoptions, echo=FALSE, results='asis'}
+```{r setoptions, echo=TRUE, results='asis'}
 library("knitr")
-opts_chunk$set(echo= FALSE, results= 'asis')
+opts_chunk$set(echo= TRUE, results= 'asis')
 ```
 
 ```{r read data, echo=FALSE, results='asis'}
@@ -48,7 +48,8 @@ For analysis purpose, transform the **date** varible to POSIXt format by the pac
 library("lubridate")
 activity$date<- ymd(activity$date)
 class(activity$date)
-summary(activity)
+library("xtable")
+print(xtable(summary(activity)), type= "html")
 nrow(activity)
 ```
 
@@ -67,7 +68,10 @@ cleanact<- subset(activity, activity$steps != "NA")
 
 # Calculate the sum per day by tapply
 sumperday<- tapply(cleanact$steps, cleanact$date, sum)
-print(sumperday)
+tokable<- function(data){
+        kable(as.data.frame(data), format="markdown", align="c", digits= 12, col.names= "Mean of steps per day")
+}
+tokable(sumperday)
 ```
 
 
@@ -93,7 +97,7 @@ Since all the medians of steps per days are reported as '0', just need to add a 
 ```{r median check}
 zeros<- subset(cleanact, cleanact$steps == 0)
 table0<- tapply(zeros$steps, zeros$date, length)
-print(table0)
+tokable(table0)
 
 # As we know that there are total 288 observation per day, check if there is any of the 0 counts less than 288/2= 144.
 any(table0<= 144)
@@ -164,12 +168,12 @@ There's another advantage of using the mean for the interval instead of mean for
 
 ##### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
-```{r inputing NA}
+```{r inputing NA, message=FALSE}
 library("dplyr")
 activity2<- activity %>% 
         mutate(input = ifelse(is.na(steps), interperday, steps))
 
-summary(activity2)
+print(xtable(summary(activity2)), type= "html")
 ```
 
 We can see that the `NA`s are successfully replaced by the mean of each 5-minute interval. Variable **input** has exact the same min, mean, and max value with **steps**, and has no any `NA` found.
@@ -191,11 +195,13 @@ We can see that it looks identically to the one plotted in part 1, because in th
 However, the dataset might have changed after inputting the `NA`s. Let's take a quick look on the result of tapply.
 
 ```{r tapply before and after}
-tapply(cleanact$steps, cleanact$date, mean)
-tapply(activity2$input, activity2$date, mean)
+before<- tapply(activity$steps, activity$date, mean)
+after<- tapply(activity2$input, activity2$date, mean)
+tokable(before)
+tokable(after)
 ```
 
-The missing date **2012-10-01** and **2012-11-15** are BACK!!!
+All the missing means are BACK!!!
 
 ### Are there differences in activity patterns between weekdays and weekends?
 
