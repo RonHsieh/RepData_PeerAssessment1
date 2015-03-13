@@ -31,12 +31,12 @@ List of Variables:
 *The dataset is stored in a comma-separated-value (CSV) file and there are a total of 17,568 observations in this dataset.*
 
 We could have a quick view of this dataset as below:
-```{r setoptions}
+```{r setoptions, echo=FALSE, results='asis'}
 library("knitr")
-opts_chunk$set(echo= FALSE, results= "asis")
+opts_chunk$set(echo= FALSE, results= 'asis')
 ```
 
-```{r read data}
+```{r read data, echo=FALSE, results='asis'}
 # First set your working directory to the folder where the dataset downloaded or saved.
 activity<- read.csv("activity.csv")
 head(activity, 15)
