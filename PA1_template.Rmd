@@ -69,7 +69,7 @@ cleanact<- subset(activity, activity$steps != "NA")
 # Calculate the sum per day by tapply
 sumperday<- tapply(cleanact$steps, cleanact$date, sum)
 tokable<- function(data){
-        kable(as.data.frame(data), format="markdown", align="c", digits= 12, col.names= "Mean of steps per day")
+        kable(as.data.frame(data), format="markdown", align="c", digits= 12, col.names= "steps per day")
 }
 tokable(sumperday)
 ```

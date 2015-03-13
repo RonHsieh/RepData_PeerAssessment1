@@ -271,7 +271,7 @@ print(xtable(summary(activity)), type= &quot;html&quot;)
 
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
 
-<!-- Fri Mar 13 23:43:11 2015 -->
+<!-- Fri Mar 13 23:46:39 2015 -->
 
 <table border=1>
 <tr> <th>  </th> <th>     steps </th> <th>      date </th> <th>    interval </th>  </tr>
@@ -307,7 +307,7 @@ cleanact&lt;- subset(activity, activity$steps != &quot;NA&quot;)
 # Calculate the sum per day by tapply
 sumperday&lt;- tapply(cleanact$steps, cleanact$date, sum)
 tokable&lt;- function(data){
-        kable(as.data.frame(data), format=&quot;markdown&quot;, align=&quot;c&quot;, digits= 12, col.names= &quot;Mean of steps per day&quot;)
+        kable(as.data.frame(data), format=&quot;markdown&quot;, align=&quot;c&quot;, digits= 12, col.names= &quot;steps per day&quot;)
 }
 tokable(sumperday)
 </code></pre>
@@ -315,7 +315,7 @@ tokable(sumperday)
 <table><thead>
 <tr>
 <th align="left"></th>
-<th align="center">Mean of steps per day</th>
+<th align="center">steps per day</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -833,7 +833,7 @@ tokable(table0)
 <table><thead>
 <tr>
 <th align="left"></th>
-<th align="center">Mean of steps per day</th>
+<th align="center">steps per day</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -1412,7 +1412,7 @@ print(xtable(summary(activity2)), type= &quot;html&quot;)
 
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
 
-<!-- Fri Mar 13 23:43:12 2015 -->
+<!-- Fri Mar 13 23:46:40 2015 -->
 
 <table border=1>
 <tr> <th>  </th> <th>     steps </th> <th>      date </th> <th>    interval </th> <th>     input </th>  </tr>
