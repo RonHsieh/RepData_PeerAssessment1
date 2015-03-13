@@ -31,10 +31,13 @@ List of Variables:
 *The dataset is stored in a comma-separated-value (CSV) file and there are a total of 17,568 observations in this dataset.*
 
 We could have a quick view of this dataset as below:
+```{r setoptions}
+library("knitr")
+opts_chunk$set(echo= FALSE, results= "asis")
+```
 
-```{r}
+```{r read data}
 # First set your working directory to the folder where the dataset downloaded or saved.
-
 activity<- read.csv("activity.csv")
 head(activity, 15)
 ```
@@ -247,7 +250,7 @@ plotsetm<- gather(plotset, weekdays, steps, -time)
 library("ggplot2")
 library("scales")
 q<- qplot(time, steps, data= plotsetm, geom="line", facets= weekdays ~., xlab= "Interval", ylab= "Number of steps")
-q + theme_bw() + geom_line(aes(colour= weekdays)) + theme(legend.position="none") + scale_x_datetime(labels = date_format("%H:%M"))
+q + theme_bw() + geom_line(aes(colour= weekdays)) + theme(legend.position="none") + scale_x_datetime(breaks = date_breaks("3 hour"), labels = date_format("%H:%M"))
 
 ```
 
