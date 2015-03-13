@@ -259,4 +259,5 @@ Now we get a prettier one!!! Great.
 And back to the quetsion, they are apparently different patterns for "weekday" and "weekend".
 As the patterns shown, the users of monitoring devices took more steps on weekends. During weekdays, they moved frequently only in the morning (maybe moving to office or schools?), while they took steps more evenly in the day time of weekends.
 
+
 **DONE!!**
