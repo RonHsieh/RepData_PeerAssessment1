@@ -197,8 +197,7 @@ However, the dataset might have changed after inputting the `NA`s. Let's take a 
 ```{r tapply before and after}
 before<- tapply(activity$steps, activity$date, mean)
 after<- tapply(activity2$input, activity2$date, mean)
-tokable(before)
-tokable(after)
+kable(cbind(before, after), format= "markdown", col.names= c("Before inputing values to NA", "After inputing values to NA"), align= c('c', 'c'))
 ```
 
 All the missing means are BACK!!!
