@@ -69,7 +69,7 @@ cleanact<- subset(activity, activity$steps != "NA")
 # Calculate the sum per day by tapply
 sumperday<- tapply(cleanact$steps, cleanact$date, sum)
 tokable<- function(data){
-        kable(as.data.frame(data), format="markdown", align="c", digits= 12, col.names= "steps per day")
+        kable(as.data.frame(data), format="markdown", align="c", digits= 12, col.names= "Total steps per day")
 }
 tokable(sumperday)
 ```
@@ -97,7 +97,7 @@ Since all the medians of steps per days are reported as '0', just need to add a 
 ```{r median check}
 zeros<- subset(cleanact, cleanact$steps == 0)
 table0<- tapply(zeros$steps, zeros$date, length)
-tokable(table0)
+kable(as.data.frame(table0), format="markdown", align="c", digits= 12, col.names= "Number of '0' steps per day")
 
 # As we know that there are total 288 observation per day, check if there is any of the 0 counts less than 288/2= 144.
 any(table0<= 144)
@@ -213,7 +213,7 @@ kable(cbind(before, after), format= "markdown", col.names= c("Before inputing va
 
 All the missing means are BACK!!!
 Those `NA`s would post an impact on estimating the total number of steps taken per day, as we would not count those `NA` as an effective value.
-As we input `NA` with means or other alternative strategies, they will be replaced by a relatively "neutral" value that may not affect the final result, while no any missing values will interupt our analysis.
+As we input `NA` with means or other alternative strategies, they will be replaced by a relatively "neutral" value (i.e. Mean of **input** = **37.38**), that may not affect the final result, while no any missing values will interupt our analysis.
 
 
 ### Are there differences in activity patterns between weekdays and weekends?
